@@ -1,0 +1,17 @@
+{
+     "name": "veloccer/icarro",
+     "description": "",
+    "require": {
+        "mikecao/flight": "^1.2"
+    },
+    "authors": [
+        {
+            "name": "Hagamenon Oliveira",
+            "email": "haganicolau@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    }
+}
