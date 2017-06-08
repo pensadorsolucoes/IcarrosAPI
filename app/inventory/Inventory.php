@@ -442,12 +442,49 @@ class Inventory {
     }
 
     /**
-    * seach the receveid calls by call
+    * get the receveid calls by the advertiser.
     * @param array $data
     * @return array List of Dealers
     **/
     public function getDealerCalls($data){
         $url = '/dealerservice/dealear/'.$data->dealerId.'/calls';
+        /*
+            Attributes relation:
+             -modeloId: id dealer
+
+        */
+        try {
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'GET';
+            $dateCurl->_status = '';
+
+            $myCurl = new MyCurl($dateCurl);
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+
+            $myCurl->setHeader($header);
+            $dealer = $myCurl->createCurl();
+
+            $dealer = json_decode($dealer);
+            return $dealer;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * List the dealer's current inventory
+    * @param array $data
+    * @return array List of Dealers
+    **/
+    public function getDealerInventory($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory';
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -478,5 +515,509 @@ class Inventory {
         }
     }
 
+    /**
+    * Create a new ad
+    * @param array $data
+    * @return arrayAnswer success or fail
+    **/
+    public function createDealer($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory';
+        /*
+            Attributes relation:
+             -modeloId: id dealer
+             -fields: fields to send in post http
 
+        */
+        try {
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'POST';
+            $dateCurl->_status = '';
+
+            $myCurl = new MyCurl($dateCurl);
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+
+            /*
+            $fields = new \stdClass();
+            $fields->trimId = $data->fields->trimId;
+            $fields->id = = $data->fields->id;
+            $fields->productionYear = $data->fields->productionYear;
+            $fields->modelYear = $data->fields->modelYear;
+            $fields->doors = $data->fields->doors;
+            $fields->colorId = $data->fields->colorId;
+            $fields->km = $data->fields->km;
+            $fields->price = $data->fields->price;
+            $fields->priceResale = $data->fields->priceResale;
+            $fields->fuelId = $data->fields->fuelId;
+            $fields->plate = $data->fields->plate;
+
+            $fields->photosIds = $data->fields->photosIds;
+            $fields->equipmentsIds = $data->fields->equipmentsIds;
+            $fields->text = $data->fields->text;
+            $fields->dealerId = $data->fields->dealerId;
+
+            $fields->publishes->planId = $data->fields->publishes->planId;
+            $fields->publishes->priority = $data->fields->publishes->priority;
+            $fields->publishes->feature1 = $data->fields->publishes->feature1;
+            $fields->publishes->feature2 = $data->fields->publishes->feature2;
+            $fields->publishes->feature3 = $data->fields->publishes->feature3;
+            $fields->publishes->zeroKm = $data->fields->publishes->zeroKm;
+            $fields->publishes->publishProviderId = $data->fields->publishes->publishProviderId;*/
+
+            $fields_json = json_encode($data->fields);
+
+            $myCurl->setPost($fields_json);
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Create a new ad
+    * @param array $data
+    * @return array Answer success or fail
+    **/
+    public function deleteDealer($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId;
+        /*
+            Attributes relation:
+             -modeloId: id dealer
+             -dealId: delete that ad
+
+        */
+        try {
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'DELETE';
+            $dateCurl->_status = '';
+
+            $myCurl = new MyCurl($dateCurl);
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+
+            $myCurl->setDelete();
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Returns the datas of the current requested ad
+    * @param array $data
+    * @return array datas of this dealer
+    **/
+    public function getDataDealer($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId;
+        /*
+            Attributes relation:
+             -modeloId: id dealer
+             -dealId: delete that ad
+
+        */
+        try {
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'GET';
+            $dateCurl->_status = '';
+
+            $myCurl = new MyCurl($dateCurl);
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Update ad with uploaded data
+    * @param array $data
+    * @return array Answer success or fail
+    **/
+    public function updateDealer($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId;
+        /*
+            Attributes relation:
+             -modeloId: id dealer
+             -dealId: delete that ad
+
+        */
+        try {
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'PUT';
+            $dateCurl->_status = '';
+
+            /*
+            $fields = new \stdClass();
+            $fields->trimId = $data->fields->trimId;
+            $fields->id = = $data->fields->id;
+            $fields->productionYear = $data->fields->productionYear;
+            $fields->modelYear = $data->fields->modelYear;
+            $fields->doors = $data->fields->doors;
+            $fields->colorId = $data->fields->colorId;
+            $fields->km = $data->fields->km;
+            $fields->price = $data->fields->price;
+            $fields->priceResale = $data->fields->priceResale;
+            $fields->fuelId = $data->fields->fuelId;
+            $fields->plate = $data->fields->plate;
+
+            $fields->photosIds = $data->fields->photosIds;
+            $fields->equipmentsIds = $data->fields->equipmentsIds;
+            $fields->text = $data->fields->text;
+            $fields->dealerId = $data->fields->dealerId;
+
+            $fields->publishes->planId = $data->fields->publishes->planId;
+            $fields->publishes->priority = $data->fields->publishes->priority;
+            $fields->publishes->feature1 = $data->fields->publishes->feature1;
+            $fields->publishes->feature2 = $data->fields->publishes->feature2;
+            $fields->publishes->feature3 = $data->fields->publishes->feature3;
+            $fields->publishes->zeroKm = $data->fields->publishes->zeroKm;
+            $fields->publishes->publishProviderId = $data->fields->publishes->publishProviderId;*/
+
+            $fields_json = json_encode($data->fields);
+            $myCurl->setPut();
+
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Creates a new image for the informed ad
+    * @param array $data
+    * @return array answer success or fail
+    **/
+    public function createNewPicture($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId.'/image';
+        /*
+            Attributes relation:
+             -modeloId: id dealer
+             -dealId: delete that ad
+
+        */
+        try {
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'POST';
+            $dateCurl->_status = '';
+
+            $fields_json = json_encode($data->fields);
+            $myCurl->setPost($fields_json);
+
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Delete a image for the informed ad
+    * @param array $data
+    * @return array Answer success or fail
+    **/
+    public function deletePicture($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId.'/image/'.$data->imageId;
+        /*
+            Attributes relation:
+             -modeloId: id dealer
+             -dealId: delete that ad
+             -imageId: id image
+        */
+        try {
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'DELETE';
+            $dateCurl->_status = '';
+
+            $myCurl->setDelete();
+
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Reorder the ad images in the order they were sent (ids of the images separated by underline eg 123_432_9832)
+    * @param array $data
+    * @return string ids of the images
+    **/
+    public function reorderPicture($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId.'/orderimages/'.$data->imagesUnderline;
+        /*
+            Attributes relation:
+             -modeloId: id dealer
+             -dealId: delete that ad
+             -imagesUnderline: ids of the images separated by underline eg 123_432_9832
+        */
+        try {
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'GET';
+            $dateCurl->_status = '';
+
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Returns all mail and financing leads (grouped by user) for the last 90 days.
+    * @param array $data
+    * @return array mail and financing leads
+    **/
+    public function getLeads($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/leads';
+        /*
+            Attributes relation:
+             -dealerId: id dealer
+        */
+
+        try{
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'GET';
+            $dateCurl->_status = '';
+
+
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+
+    }
+
+    /**
+    * Returns all mail and financing leads (grouped by user) since initial date
+    * @param array $data
+    * @return array mail and financing leads
+    **/
+    public function getLeads($data){
+        $url = '/dealerservice/dealear/'.$data->dealerId.'/leads/'.$data->initial_data;
+        /*
+            Attributes relation:
+             -dealerId: id dealer
+             -initial_data: initial data
+        */
+
+        try{
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'GET';
+            $dateCurl->_status = '';
+
+            
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Returns all mail and financing leads (grouped by user) between two dates
+    * @param array $data
+    * @return array mail and financing leads
+    **/
+    public function getLeads($data){
+        $url = '/dealerservice/invoices/'.$data->dealerId.'/'.$data->initial_data.'/'.$data->final_date;
+        /*
+            Attributes relation:
+             -dealerId: id dealer
+             -initial_data: initial data
+             -final_date: final data
+        */
+
+        try{
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'GET';
+            $dateCurl->_status = '';
+
+            
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Check which advertiser IDs you've received after a specific date.
+    * @param array $data
+    * @return array mail and financing leads
+    **/
+    public function getLastTimeChecked($data){
+        $url = '/dealerservice/leads/check/'.$data->lastTimeChecked;
+        /*
+            Attributes relation:
+             -lastTimeChecked: specific period will check
+        */
+
+        try{
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'POST';
+            $dateCurl->_status = '';
+
+            
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $fields_json = json_encode($data->fields);
+            $myCurl->setPost($fields_json);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
+
+    /**
+    * Returns all produtcs by id dealer
+    * @param array $data
+    * @return array mail and financing leads
+    **/
+    public function getProducts($data){
+        $url = '/dealerservice/products/'.$data->dealerId;
+        /*
+            Attributes relation:
+             -dealerId: id dealer
+        */
+
+        try{
+            $dateCurl = new \stdClass();
+            $dateCurl->_url = $this->host.$url;
+            $dateCurl->_method = 'GET';
+            $dateCurl->_status = '';
+        
+            $header[0]='Accept: application/json';
+            $header[1]=$data->token;
+            $myCurl->setHeader($header);
+
+            $return = $myCurl->createCurl();
+            $return = json_decode($return);
+            return $return;
+
+        } catch (Exception $e) {
+            $return = [
+                'status'=>'fail',
+                'message'=>$e->getMessage()
+            ];
+            return $return;
+        }
+    }
 }

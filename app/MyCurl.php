@@ -43,6 +43,18 @@ class MyCurl {
 	protected $_post;
 
 	/**
+	* if method put
+	* @var string
+	**/
+	protected $_put;
+
+	/**
+	* if method delete
+	* @var string
+	**/
+	protected $_delete;
+
+	/**
 	* construct of function, initialize curl
 	* @param array $data
 	**/
@@ -61,6 +73,21 @@ class MyCurl {
         $this->_postFields = $postFields; 
     } 
 
+    /**
+	* if it's post method http set post (necessary), 
+	* @param array $fields
+	**/
+    public function setDelete(){
+    	$this->_delete = true; 
+    }
+
+    /**
+	* if it's put method http set put (necessary), 
+	* @param array $fields
+	**/
+    public function setPut(){
+    	$this->_put = true; 
+    }
 
     /**
 	* set header http
@@ -87,9 +114,17 @@ class MyCurl {
 	    	$myCurl = curl_init(); 
 	    	
 	    	if($this->_post){ 
-	        	curl_setopt($s,CURLOPT_POST,true); 
-	        	curl_setopt($s,CURLOPT_POSTFIELDS,$this->_postFields); 
+	        	curl_setopt($myCurl,CURLOPT_POST,true); 
+	        	curl_setopt($myCurl,CURLOPT_POSTFIELDS,$this->_postFields); 
 	        } 
+
+	        if($this->_delete){
+	        	curl_setopt($myCurl, CURLOPT_CUSTOMREQUEST, "DELETE");
+	        }
+
+	        if($this->_put){
+	        	curl_setopt($myCurl, CURLOPT_CUSTOMREQUEST, "PUT");
+	        }
 
 	    	curl_setopt($myCurl,CURLOPT_URL,$this->_url); 
 	    	curl_setopt($myCurl,CURLOPT_SSL_VERIFYPEER, false); 
@@ -100,7 +135,6 @@ class MyCurl {
 	        curl_setopt($myCurl,CURLOPT_RETURNTRANSFER,true); 
 	        $data = curl_exec($myCurl);
 	        $httpcode = curl_getinfo($myCurl, CURLINFO_HTTP_CODE);
-	        // var_dump($data);
 	        
 	        if($data === false){
 	        	$error = curl_error($myCurl);
