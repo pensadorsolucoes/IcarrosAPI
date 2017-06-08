@@ -75,6 +75,11 @@ class MyCurl {
 
     /**
 	* create curl and exec url
+	* @return array response of request
+	* @throws response is false
+	* @throws response is empty
+	* @throws http code is 401, unauthorized
+	* @throws http code is 400, error server
 	**/
     public function createCurl(){
 
@@ -93,8 +98,8 @@ class MyCurl {
 	        curl_setopt($myCurl,CURLOPT_TIMEOUT, 30); 
 	        curl_setopt($myCurl,CURLOPT_MAXREDIRS, 4); 
 	        curl_setopt($myCurl,CURLOPT_RETURNTRANSFER,true); 
-
 	        $data = curl_exec($myCurl);
+	        $httpcode = curl_getinfo($myCurl, CURLINFO_HTTP_CODE);
 	        // var_dump($data);
 	        
 	        if($data === false){
@@ -105,6 +110,14 @@ class MyCurl {
 	        if(empty($data)==true){
 	        	$error = curl_error($myCurl);
 	        	throw new Exception("Error Message: Empty response");
+	        }
+
+	        if($httpcode == 401){
+	        	throw new Exception("Error Message: Expired Token");
+	        }
+
+	        if($httpcode == 500){
+	        	throw new Exception("Error Message: Error Server");
 	        }
 
 	        curl_close($myCurl); 

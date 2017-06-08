@@ -1,9 +1,6 @@
 {
      "name": "veloccer/icarro",
-     "description": "",
-    "require": {
-        "mikecao/flight": "^1.2"
-    },
+     "description": "Api de integração com o sistemas icarros",
     "authors": [
         {
             "name": "Hagamenon Oliveira",
