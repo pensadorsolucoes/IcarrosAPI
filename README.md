@@ -86,12 +86,14 @@ $token = $acessToken->access_token; /*Must be stored for future requests*/
 The application must store the update token for future use and use the access token to access the iCarros APIs. Once the access token expires, the application must use the getRefreshtoken($data) update function to get a new access token.
 Along with the access token (access_token) the authorization server will send a session refresh token (refresh_token), as well as other relevant data such as the token expiration time (expires_in), and an id token (id_token). The return is in JSON format.
 Access tokens have limited lifespan - usually no more than 1 hour. If you need access to the iCarros API beyond the lifetime of a single access token, you can get a new token using the refresh_token.
+
 | Param | Description| 
 | ------ | ------ |
 | refresh_token | The refresh token, value returned at the request of the token.
 | client_id | Identifies the client making the request
 | client_secret | Identifies the type of access your app is requesting. Eg for inventory integration the request is 'anuciantepj' what does it mean advertiserpj. For integration of assembler offers the request is grouped. The usersite permission is required.
 |grant_type|  As defined in the OAuth 2.0 specification, this field must contain the "refresh_token" value.
+
 ```sh
 $accesToken = $access->getAccessToken($params);
 
@@ -436,7 +438,7 @@ $leads = $inventory->getProducts($data);
 ```sh
 array(2) { 
     ["status"]=> string(4) "fail" 
-    ["message"]=> string(101) "ensage Error!" } 
+    ["message"]=> string(101) "Mensage Error!" } 
 ```
 
 #License
