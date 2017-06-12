@@ -60,8 +60,9 @@ $authorization = $access->getAccessAuthorization($params);
 
 ### Step 2 - Access Token
 After receiving the authorization code it is necessary to use a new function called getAccessToken($params) with the authorization code as parameter, in addition to the previous values, observe the example below.
-| Param | Description 
-| ------ | ------ 
+
+| Param | Description| 
+| ------ | ------ |
 | scope | Determines that the authentication server must return an authorization code.
 | client_id | Identifies the client making the request
 | redirect_uri | Determines where the response will be sent. The customer will need to provide this URL and go to the iCarros customer service team to register on the Authorization Server.
@@ -435,8 +436,7 @@ $leads = $inventory->getProducts($data);
 ```sh
 array(2) { 
     ["status"]=> string(4) "fail" 
-    ["message"]=> string(101) "Mensage Error!" 
-} 
+    ["message"]=> string(101) "ensage Error!" } 
 ```
 
 #License
