@@ -8,7 +8,6 @@ class Inventory {
     **/
     protected $host = 'https://paginasegura.icarros.com.br/rest';
 
-
     public function __construct() {
       
     }
@@ -229,7 +228,7 @@ class Inventory {
     * @return array of average and maximum price announced for the vehicle in iCarros
     **/
     public function getPricestats($data){
-        $url = '/databaseservice/pricestats/'.$data->ufId.'/'.$data->trimId.'/'.$data->year.'/'.$data->km;
+        $url = '/databaseservice/pricestats/1/'.$data->trimId.'/'.$data->year.'/'.$data->km;
         /*
             Attributes relation:
              -ufId: has no logic, any number entered, returns the same data
@@ -301,7 +300,7 @@ class Inventory {
     * @return array Reviews of a model according to the year
     **/
     public function getReviews($data){
-        $url = '/databaseservice/reviews/'.$data->modeloId.'/'.$data->anoModelo;
+        $url = '/databaseservice/reviews/'.$data->modelId.'/'.$data->modelYear;
         /*
             Attributes relation:
              -modeloId: id model
@@ -447,13 +446,14 @@ class Inventory {
     * @return array List of Dealers
     **/
     public function getDealerCalls($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/calls';
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/calls';
+        // $url = '/dealerservice/statsbydate/'.$data->dealerId.'/20161211/20170609';
         /*
             Attributes relation:
              -modeloId: id dealer
 
         */
-        try {
+       try {
             $dateCurl = new \stdClass();
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'GET';
@@ -484,7 +484,7 @@ class Inventory {
     * @return array List of Dealers
     **/
     public function getDealerInventory($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory';
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory';
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -520,8 +520,8 @@ class Inventory {
     * @param array $data
     * @return arrayAnswer success or fail
     **/
-    public function createDealer($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory';
+    public function createDeal($data){
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory';
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -535,13 +535,13 @@ class Inventory {
             $dateCurl->_status = '';
 
             $myCurl = new MyCurl($dateCurl);
-            $header[0]='Accept: application/json';
-            $header[1]=$data->token;
+            $header[0]='Content-Type: application/json';
+            $header[1]='Accept: application/json';
+            $header[2]=$data->token;
 
-            /*
+            
             $fields = new \stdClass();
             $fields->trimId = $data->fields->trimId;
-            $fields->id = = $data->fields->id;
             $fields->productionYear = $data->fields->productionYear;
             $fields->modelYear = $data->fields->modelYear;
             $fields->doors = $data->fields->doors;
@@ -551,23 +551,15 @@ class Inventory {
             $fields->priceResale = $data->fields->priceResale;
             $fields->fuelId = $data->fields->fuelId;
             $fields->plate = $data->fields->plate;
-
-            $fields->photosIds = $data->fields->photosIds;
-            $fields->equipmentsIds = $data->fields->equipmentsIds;
             $fields->text = $data->fields->text;
             $fields->dealerId = $data->fields->dealerId;
+            $fields->equipmentsIds = $data->fields->equipmentsIds;
+            $fields->photosIds = $data->fields->photosIds;
 
-            $fields->publishes->planId = $data->fields->publishes->planId;
-            $fields->publishes->priority = $data->fields->publishes->priority;
-            $fields->publishes->feature1 = $data->fields->publishes->feature1;
-            $fields->publishes->feature2 = $data->fields->publishes->feature2;
-            $fields->publishes->feature3 = $data->fields->publishes->feature3;
-            $fields->publishes->zeroKm = $data->fields->publishes->zeroKm;
-            $fields->publishes->publishProviderId = $data->fields->publishes->publishProviderId;*/
+            $fields->initialDateDisplay = $data->fields->initialDateDisplay;
+            $fields->dateDisplayEnd = $data->fields->dateDisplayEnd;
 
-            $fields_json = json_encode($data->fields);
-
-            $myCurl->setPost($fields_json);
+            $myCurl->setPost($fields);
             $myCurl->setHeader($header);
 
             $return = $myCurl->createCurl();
@@ -588,8 +580,8 @@ class Inventory {
     * @param array $data
     * @return array Answer success or fail
     **/
-    public function deleteDealer($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId;
+    public function deleteDeal($data){
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId;
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -625,8 +617,8 @@ class Inventory {
     * @param array $data
     * @return array datas of this dealer
     **/
-    public function getDataDealer($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId;
+    public function getDataDeal($data){
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId;
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -661,8 +653,8 @@ class Inventory {
     * @param array $data
     * @return array Answer success or fail
     **/
-    public function updateDealer($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId;
+    public function updateDeal($data){
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId;
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -678,7 +670,6 @@ class Inventory {
             /*
             $fields = new \stdClass();
             $fields->trimId = $data->fields->trimId;
-            $fields->id = = $data->fields->id;
             $fields->productionYear = $data->fields->productionYear;
             $fields->modelYear = $data->fields->modelYear;
             $fields->doors = $data->fields->doors;
@@ -687,22 +678,23 @@ class Inventory {
             $fields->price = $data->fields->price;
             $fields->priceResale = $data->fields->priceResale;
             $fields->fuelId = $data->fields->fuelId;
-            $fields->plate = $data->fields->plate;
+            $fields->plate = $data->fields->plate;*/
 
-            $fields->photosIds = $data->fields->photosIds;
-            $fields->equipmentsIds = $data->fields->equipmentsIds;
-            $fields->text = $data->fields->text;
-            $fields->dealerId = $data->fields->dealerId;
+            // $fields->photosIds = $data->fields->photosIds;
+            // $fields->equipmentsIds = $data->fields->equipmentsIds;
+            // $fields->text = $data->fields->text;
+            // $fields->dealerId = $data->fields->dealerId;
 
-            $fields->publishes->planId = $data->fields->publishes->planId;
-            $fields->publishes->priority = $data->fields->publishes->priority;
-            $fields->publishes->feature1 = $data->fields->publishes->feature1;
-            $fields->publishes->feature2 = $data->fields->publishes->feature2;
-            $fields->publishes->feature3 = $data->fields->publishes->feature3;
-            $fields->publishes->zeroKm = $data->fields->publishes->zeroKm;
-            $fields->publishes->publishProviderId = $data->fields->publishes->publishProviderId;*/
+            // $fields->initialDateDisplay = $data->fields->initialDateDisplay;
+            // $fields->dateDisplayEnd = $data->fields->dateDisplayEnd;
+            // $fields->publishes->priority = $data->fields->publishes->priority;
+            // $fields->publishes->feature1 = $data->fields->publishes->feature1;
+            // $fields->publishes->feature2 = $data->fields->publishes->feature2;
+            // $fields->publishes->feature3 = $data->fields->publishes->feature3;
+            // $fields->publishes->zeroKm = $data->fields->publishes->zeroKm;
+            // $fields->publishes->publishProviderId = $data->fields->publishes->publishProviderId;
 
-            $fields_json = json_encode($data->fields);
+           /* $fields_json = json_encode($data->fields);
             $myCurl->setPut();
 
             $header[0]='Accept: application/json';
@@ -711,7 +703,7 @@ class Inventory {
 
             $return = $myCurl->createCurl();
             $return = json_decode($return);
-            return $return;
+            return $return;*/
 
         } catch (Exception $e) {
             $return = [
@@ -728,7 +720,7 @@ class Inventory {
     * @return array answer success or fail
     **/
     public function createNewPicture($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId.'/image';
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId.'/image';
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -740,6 +732,7 @@ class Inventory {
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'POST';
             $dateCurl->_status = '';
+            $myCurl = new MyCurl($dateCurl);
 
             $fields_json = json_encode($data->fields);
             $myCurl->setPost($fields_json);
@@ -767,7 +760,7 @@ class Inventory {
     * @return array Answer success or fail
     **/
     public function deletePicture($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId.'/image/'.$data->imageId;
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId.'/image/'.$data->imageId;
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -779,6 +772,7 @@ class Inventory {
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'DELETE';
             $dateCurl->_status = '';
+            $myCurl = new MyCurl($dateCurl);
 
             $myCurl->setDelete();
 
@@ -805,7 +799,7 @@ class Inventory {
     * @return string ids of the images
     **/
     public function reorderPicture($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/inventory/'.$data->dealId.'/orderimages/'.$data->imagesUnderline;
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId.'/orderimages/'.$data->imagesUnderline;
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -817,6 +811,7 @@ class Inventory {
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'GET';
             $dateCurl->_status = '';
+            $myCurl = new MyCurl($dateCurl);
 
             $header[0]='Accept: application/json';
             $header[1]=$data->token;
@@ -841,7 +836,7 @@ class Inventory {
     * @return array mail and financing leads
     **/
     public function getLeads($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/leads';
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/leads';
         /*
             Attributes relation:
              -dealerId: id dealer
@@ -852,6 +847,7 @@ class Inventory {
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'GET';
             $dateCurl->_status = '';
+            $myCurl = new MyCurl($dateCurl);
 
 
             $header[0]='Accept: application/json';
@@ -877,8 +873,8 @@ class Inventory {
     * @param array $data
     * @return array mail and financing leads
     **/
-    public function getLeads($data){
-        $url = '/dealerservice/dealear/'.$data->dealerId.'/leads/'.$data->initial_data;
+    public function getLeadsSiceDate($data){
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/leads/'.$data->initial_data;
         /*
             Attributes relation:
              -dealerId: id dealer
@@ -890,6 +886,7 @@ class Inventory {
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'GET';
             $dateCurl->_status = '';
+            $myCurl = new MyCurl($dateCurl);
 
             
             $header[0]='Accept: application/json';
@@ -914,7 +911,7 @@ class Inventory {
     * @param array $data
     * @return array mail and financing leads
     **/
-    public function getLeads($data){
+    public function getInvoicesBetweenDates($data){
         $url = '/dealerservice/invoices/'.$data->dealerId.'/'.$data->initial_data.'/'.$data->final_date;
         /*
             Attributes relation:
@@ -928,6 +925,7 @@ class Inventory {
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'GET';
             $dateCurl->_status = '';
+            $myCurl = new MyCurl($dateCurl);
 
             
             $header[0]='Accept: application/json';
@@ -964,6 +962,7 @@ class Inventory {
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'POST';
             $dateCurl->_status = '';
+            $myCurl = new MyCurl($dateCurl);
 
             
             $header[0]='Accept: application/json';
@@ -1003,6 +1002,7 @@ class Inventory {
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'GET';
             $dateCurl->_status = '';
+            $myCurl = new MyCurl($dateCurl);
         
             $header[0]='Accept: application/json';
             $header[1]=$data->token;

@@ -110,12 +110,11 @@ class MyCurl {
 	**/
     public function createCurl(){
 
-    	try{
 	    	$myCurl = curl_init(); 
 	    	
 	    	if($this->_post){ 
 	        	curl_setopt($myCurl,CURLOPT_POST,true); 
-	        	curl_setopt($myCurl,CURLOPT_POSTFIELDS,$this->_postFields); 
+	        	curl_setopt($myCurl,CURLOPT_POSTFIELDS, json_encode($this->_postFields)); 
 	        } 
 
 	        if($this->_delete){
@@ -135,35 +134,36 @@ class MyCurl {
 	        curl_setopt($myCurl,CURLOPT_RETURNTRANSFER,true); 
 	        $data = curl_exec($myCurl);
 	        $httpcode = curl_getinfo($myCurl, CURLINFO_HTTP_CODE);
+
+	        $header_size = curl_getinfo($myCurl, CURLINFO_HEADER_SIZE);
+	        $header_aux = substr($data, 0, $header_size);
 	        
 	        if($data === false){
 	        	$error = curl_error($myCurl);
-	        	throw new Exception("Error Message: ".$error);
+	        	throw new Exception("Error Message: ".$error." ".$header_aux);
 	        }
 
 	        if(empty($data)==true){
 	        	$error = curl_error($myCurl);
-	        	throw new Exception("Error Message: Empty response");
+	        	throw new Exception("Error Message: Empty response, ".$header_aux);
+	        }
+
+	        if($httpcode==400){
+	        	$error = curl_error($myCurl);
+	        	throw new Exception("Error Message: ".$error." ".$header_aux);
 	        }
 
 	        if($httpcode == 401){
-	        	throw new Exception("Error Message: Expired Token");
+	        	throw new Exception("Error Message: Expired Token, ".$header_aux);
 	        }
 
 	        if($httpcode == 500){
-	        	throw new Exception("Error Message: Error Server");
+	        	throw new Exception("Error Message: Error Server. ".$header_aux);
 	        }
 
 	        curl_close($myCurl); 
 	        return $data;
-
-	    } catch (Exception $e) {
-            $return = [
-            	'status'=>'fail',
-            	'message'=>$e->getMessage()
-            ];
-            return $return;
-        }
+	    
     }
 
 }

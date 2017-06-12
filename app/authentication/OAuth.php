@@ -23,7 +23,7 @@ class OAuth {
 	* get autorization code, then you can get token
 	* @param array $data
 	**/
-	public function getAccessAutorization($data){
+	public function getAccessAuthorization($data){
 		$host = 'https://accounts.icarros.com/auth/realms/icarros/protocol/openid-connect/auth?';
 		// $host = 'https://linguagem-programacao4.herokuapp.com/v1/livros';
 
@@ -44,7 +44,7 @@ class OAuth {
 			$myCurl = new MyCurl($dateCurl);
 
 			$myCurl->setHeader($header);
-			$response = $myCurl->createCurl();
+			$response = json_decode($myCurl->createCurl());
 		    return $response;
 
 			
@@ -84,7 +84,8 @@ class OAuth {
 			$myCurl->setPost($fields);
 			$myCurl->setHeader($header);
 
-			return $myCurl->createCurl();
+			$response = json_decode($myCurl->createCurl());
+			return $request;
 
 		} catch (Exception $e) {
             $return = [
@@ -99,7 +100,7 @@ class OAuth {
 	* Token de acesso tem algo em torno de 1 hora de duração, médoto criado para atualizar token
 	* @param array $data
 	**/
-	public function getRefreshToken(){
+	public function getRefreshToken($data){
 		$host = '/auth/realms/icarros/protocol/openid-connect/token';
 
 		try{
@@ -122,7 +123,8 @@ class OAuth {
 			$myCurl->setPost($fields);
 			$myCurl->setHeader($header);
 
-			return $myCurl->createCurl();
+			$response =  json_decode($myCurl->createCurl());
+			return $response;
 
 		} catch (Exception $e) {
             $return = [

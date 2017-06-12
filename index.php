@@ -10,6 +10,28 @@ include('app/inventory/Inventory.php');
 
 try{
 	$data = new \stdClass();
+	$fields = new \stdClass();
+
+
+	$fields->trimId =15146;
+    $fields->productionYear = 2014;
+    $fields->modelYear = 2014;
+    $fields->doors = 4;
+    $fields->colorId = 5;
+    $fields->km = 25000;
+    $fields->price = 27852;
+    $fields->priceResale = 27852;
+    $fields->fuelId = 5;
+    $fields->plate = "RFG1234";
+    $fields->text= "Único dono, revisões feitas na concessionária";
+    $fields->dealerId= 1125649;
+    $fields->initialDateDisplay = '2017-06-01T13:14:01.429Z';
+    $fields->dateDisplayEnd = '2017-06-20T13:14:01.429Z';
+    $fields->equipmentsIds = [1,2,3,4,6,8,12];
+    $fields->photosIds=['74805576_1'];
+    $fields->dealId=13784817;
+
+    $data->fields = $fields;
 	$data->username='haganicolau';
 	$data->password='teste';
 	$data->client_id='123456789';
@@ -20,12 +42,17 @@ try{
 	$data->makeId=14;
 	$data->modelId=214;
 	$data->modelYear=2014;
-	$data->token='Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiIxMjk0NmVmMy01NTQ5LTQzMGQtYjM5NS03YWU4YjNkZDcyMjMiLCJleHAiOjE0OTY5Mjc2MTEsIm5iZiI6MCwiaWF0IjoxNDk2OTI0MDExLCJpc3MiOiJodHRwczovL2FjY291bnRzLmljYXJyb3MuY29tL2F1dGgvcmVhbG1zL2ljYXJyb3MiLCJhdWQiOiJzd2FnZ2VyIiwic3ViIjoiNjdmMWYyZWItNDM3Mi00MGZlLWFmY2UtNmY3MTJkOGE1ODRjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3dhZ2dlciIsInNlc3Npb25fc3RhdGUiOiI2YTFiYjg5ZC0yMWM1LTQ4YjctYWM3YS1iYmEwZmI3ZWY0MzUiLCJjbGllbnRfc2Vzc2lvbiI6IjhmNGM4NmI0LTVlYjAtNGIyMi1hMThlLTZiYmUwODMwOTEzMiIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwczovL3BhZ2luYXNlZ3VyYS5pY2Fycm9zLmNvbS5iciIsImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCJdLCJyZXNvdXJjZV9hY2Nlc3MiOnsiaWNhcnJvcy13ZWJhcHAiOnsicm9sZXMiOlsidXN1YXJpb3NpdGUiLCJhbnVuY2lhbnRlcGYiLCJhbnVuY2lhbnRlcGoiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJ2aWV3LXByb2ZpbGUiXX19LCJuYW1lIjoiQ0lDQUwgVkVJQ1VMT1MiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJjaXZlbmRhczAxQGdydXBvY2ljYWwuY29tLmJyIiwiZ2l2ZW5fbmFtZSI6IkNJQ0FMIiwiZmFtaWx5X25hbWUiOiJWRUlDVUxPUyIsImVtYWlsIjoiY2l2ZW5kYXMwMUBncnVwb2NpY2FsLmNvbS5iciJ9.UhoPQCjabTPCFLiJ_ZooEYBLSexSKkknalWYFnp-YyLcpkyh7jn6IJoCX0j13eXEbjgJI9kF8IDPulF3c79vNrBn59MWcWZPge-g9RWLiwRMs6oOjEwGgS2P2jiydP3uyV0UvHVg4qRP5P_hM2PSAaZPzGIGybsF-lEtY-mIZZ0';
+	$data->dealerId=1125649;
+	$data->token='Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJqdGkiOiJlNDAwZTlmMi02MGI1LTRiMjgtYTk5OS0zNGJlOGYyNGMyNDgiLCJleHAiOjE0OTcyNzQ5MzYsIm5iZiI6MCwiaWF0IjoxNDk3MjcxMzM2LCJpc3MiOiJodHRwczovL2FjY291bnRzLmljYXJyb3MuY29tL2F1dGgvcmVhbG1zL2ljYXJyb3MiLCJhdWQiOiJzd2FnZ2VyIiwic3ViIjoiNzIxMWQ4MTktMWY2MS00NmI3LWE1OGYtNTY1OGIyOGVkZTFjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic3dhZ2dlciIsInNlc3Npb25fc3RhdGUiOiJkYmUwMmU1My0wYmUyLTRiZTAtYTAwMS1mOTZlNjNkZGJmYWEiLCJjbGllbnRfc2Vzc2lvbiI6ImI1YjE3MjhjLWI3MDUtNDVlZC05OGE5LTRjMzc0YzAyODg0OSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwczovL3BhZ2luYXNlZ3VyYS5pY2Fycm9zLmNvbS5iciIsImh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCJdLCJyZXNvdXJjZV9hY2Nlc3MiOnsiaWNhcnJvcy13ZWJhcHAiOnsicm9sZXMiOlsidXN1YXJpb3NpdGUiLCJhbnVuY2lhbnRlcGoiXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJ2aWV3LXByb2ZpbGUiXX19LCJuYW1lIjoiQ2ljYWwgIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibWFya2V0aW5ndWRpQGdydXBvY2ljYWwuY29tLmJyIiwiZ2l2ZW5fbmFtZSI6IkNpY2FsIiwiZW1haWwiOiJtYXJrZXRpbmd1ZGlAZ3J1cG9jaWNhbC5jb20uYnIifQ.JO_fiB8qE3H0z9zXdMDCMyXKtMJuapssQfbrFmdJz8qtQhTqTx2iU2O1LSvC0sL812XU9OihcnQ1kInl5BROzWyhOVxcs5XqwDo8B_5XauYe59HB4wfYGb226GHaOa-GOBQdojpP34UysTephZm4jReyNejMp5JmkyUtE10l-YM';
 
+	$data->initial_data="20160501000000";
 
-	$estoque = new Estoque();
+	$data->initial_data = '2017-01-01';
+	$data->final_date = '2017-05-01';
+
+	$inventory = new Inventory();
 	$aux = [];
-	$aux = $estoque->getTrims($data);
+	$aux = $inventory->createDeal($data);
 	var_dump($aux);
 
 	
@@ -37,15 +64,3 @@ try{
    var_dump($return);
 }
 
-
-			/*$params=[
-				'response_type'=> $data['response_type'],
-				'client_id'=>$data['client_id'],
-				'redirect_uri'=>$data['redirect_uri'],
-				'scope'=>$data['scope'],
-				'grant_type'=>'authorization_code'
-			];*/
-
-// $access = new OAuth($data);
-// $resposta = $access->getAccessAutorization($data);
-// $resposta2 = $access->getAccessToken($data);
