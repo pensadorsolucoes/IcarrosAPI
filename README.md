@@ -143,9 +143,7 @@ $inventory = new Inventory();
 $colors = $inventory->getColors($data);
 ```
 #### return
-type  | description
------ | --------
-array | ['id'=>id, 'nome'=>]
+array  ['id'=>id, 'nome'=>]
 
 ### getEquipments
 Returns the encoding for the equipments field (optional for the car) to be used for ad inclusion
