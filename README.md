@@ -1,7 +1,7 @@
-# icarros SDK
+# Icarros SDK
+This open-source library allows you to integrate Icarros into your app. Learn more about about the provided samples, documentation, integrating the SDK into your app, accessing source code, and more at https://paginasegura.icarros.com.br/apidocs/index.html
+
 ## Dependencies
-
-
 List of dependencies for use sdk
 
   - PHP >= 5.4
@@ -9,7 +9,7 @@ List of dependencies for use sdk
   - Composer 
   - Apache
 
-## New Features!
+## Features!
   - Import icarro system to use in your aplication
   - Create forms in your application, update inventory, and get the list of leads.
 
@@ -21,9 +21,12 @@ You can also:
 
 The Website of iCarros Ltda, is intended to disclose advertisements, surveys, as well as any information and news relating to motor vehicles. This application allows you to make requests in icarros and use many resources, like: leads, inventory, create forms in your application, new ads registration in icarros account.
 
+## Give Feedback
+Please report bugs or issues to https://github.com/Veloccer/icarros/issues
+
 ## Get Start
 
-### incluce class
+### include class
 #### OAth - Autentication
 ```sh
 include('app/authentication/OAuth.php');
@@ -33,7 +36,9 @@ include('app/authentication/OAuth.php');
 ```sh
 include('app/inventory/Inventory.php');
 ```
+
 ## Instalation
+step by step - not ready
 
 ## Access Token
 ### Step 1 - Authorization
@@ -125,7 +130,7 @@ $authorization = $access->getAccessAuthorization($params);
 List of functions and operations that can be used by sdk
 
 ### using token
-For all requests using integration sdk it is necessary to pass the token to an array.
+For all requests using integration sdk it is necessary to pass the token to an object $data.
 ```sh
 $data = new \stdClass();
 $data->token = $token; /* Token got on authentication */
