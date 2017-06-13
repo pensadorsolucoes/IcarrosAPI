@@ -142,7 +142,7 @@ Returns the encoding for the colors field to be used for ad inclusion
 $inventory = new Inventory();
 $colors = $inventory->getColors($data);
 ```
-#### return: array
+#### return: array= ['id'=>'', 'nome'=>'']
 
 ### getEquipments
 Returns the encoding for the equipments field (optional for the car) to be used for ad inclusion
