@@ -518,7 +518,7 @@ class Inventory {
     /**
     * Create a new ad
     * @param array $data
-    * @return arrayAnswer success or fail
+    * @return int id new deal
     **/
     public function createDeal($data){
         $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory';
@@ -578,7 +578,7 @@ class Inventory {
     /**
     * Create a new ad
     * @param array $data
-    * @return array Answer success or fail
+    * @return string "true" or exceptino if not found
     **/
     public function deleteDeal($data){
         $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId;
@@ -599,6 +599,7 @@ class Inventory {
             $header[1]=$data->token;
 
             $myCurl->setDelete();
+            $myCurl->setHeader($header);
             $return = $myCurl->createCurl();
             $return = json_decode($return);
             return $return;
@@ -615,7 +616,7 @@ class Inventory {
     /**
     * Returns the datas of the current requested ad
     * @param array $data
-    * @return array datas of this dealer
+    * @return array 
     **/
     public function getDataDeal($data){
         $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId;
@@ -651,7 +652,7 @@ class Inventory {
     /**
     * Update ad with uploaded data
     * @param array $data
-    * @return array Answer success or fail
+    * @return int id updated deal
     **/
     public function updateDeal($data){
         $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId;
@@ -662,13 +663,19 @@ class Inventory {
 
         */
         try {
-            $dateCurl = new \stdClass();
+           $dateCurl = new \stdClass();
             $dateCurl->_url = $this->host.$url;
             $dateCurl->_method = 'PUT';
             $dateCurl->_status = '';
 
-            /*
+            $myCurl = new MyCurl($dateCurl);
+            $header[0]='Content-Type: application/json';
+            $header[1]='Accept: application/json';
+            $header[2]=$data->token;
+
             $fields = new \stdClass();
+
+            $fields->id = $data->fields->dealId;
             $fields->trimId = $data->fields->trimId;
             $fields->productionYear = $data->fields->productionYear;
             $fields->modelYear = $data->fields->modelYear;
@@ -678,32 +685,21 @@ class Inventory {
             $fields->price = $data->fields->price;
             $fields->priceResale = $data->fields->priceResale;
             $fields->fuelId = $data->fields->fuelId;
-            $fields->plate = $data->fields->plate;*/
+            $fields->plate = $data->fields->plate;
+            $fields->text = $data->fields->text;
+            $fields->dealerId = $data->fields->dealerId;
+            $fields->equipmentsIds = $data->fields->equipmentsIds;
+            $fields->photosIds = $data->fields->photosIds;
 
-            // $fields->photosIds = $data->fields->photosIds;
-            // $fields->equipmentsIds = $data->fields->equipmentsIds;
-            // $fields->text = $data->fields->text;
-            // $fields->dealerId = $data->fields->dealerId;
+            $fields->initialDateDisplay = $data->fields->initialDateDisplay;
+            $fields->dateDisplayEnd = $data->fields->dateDisplayEnd;
 
-            // $fields->initialDateDisplay = $data->fields->initialDateDisplay;
-            // $fields->dateDisplayEnd = $data->fields->dateDisplayEnd;
-            // $fields->publishes->priority = $data->fields->publishes->priority;
-            // $fields->publishes->feature1 = $data->fields->publishes->feature1;
-            // $fields->publishes->feature2 = $data->fields->publishes->feature2;
-            // $fields->publishes->feature3 = $data->fields->publishes->feature3;
-            // $fields->publishes->zeroKm = $data->fields->publishes->zeroKm;
-            // $fields->publishes->publishProviderId = $data->fields->publishes->publishProviderId;
-
-           /* $fields_json = json_encode($data->fields);
-            $myCurl->setPut();
-
-            $header[0]='Accept: application/json';
-            $header[1]=$data->token;
+            $myCurl->setPut($fields);
             $myCurl->setHeader($header);
 
             $return = $myCurl->createCurl();
             $return = json_decode($return);
-            return $return;*/
+            return $return;
 
         } catch (Exception $e) {
             $return = [
@@ -717,11 +713,11 @@ class Inventory {
     /**
     * Creates a new image for the informed ad
     * @param array $data
-    * @return array answer success or fail
+    * @return int id new picture
     **/
     public function createNewPicture($data){
-        $url = '/dealerservice/uploadimage/13793847';
-        // $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->fields->dealId.'/image';
+        // $url = '/dealerservice/uploadimage/13793847';
+        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->fields->dealId.'/image';
 
         /*
             Attributes relation:
@@ -744,7 +740,8 @@ class Inventory {
             $myCurl->setPost($fields);
 
             $header[0]='Accept: application/json';
-            $header[1]=$data->token;
+            $header[1]='Content-Type: application/json';
+            $header[2]=$data->token;
             $myCurl->setHeader($header);
 
             $return = $myCurl->createCurl();
@@ -763,7 +760,7 @@ class Inventory {
     /**
     * Delete a image for the informed ad
     * @param array $data
-    * @return array Answer success or fail
+    * @return string "true" or exception if not found
     **/
     public function deletePicture($data){
         $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId.'/image/'.$data->imageId;
@@ -787,7 +784,6 @@ class Inventory {
             $myCurl->setHeader($header);
 
             $return = $myCurl->createCurl();
-            $return = json_decode($return);
             return $return;
 
         } catch (Exception $e) {

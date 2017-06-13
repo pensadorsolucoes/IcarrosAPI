@@ -85,8 +85,9 @@ class MyCurl {
 	* if it's put method http set put (necessary), 
 	* @param array $fields
 	**/
-    public function setPut(){
+    public function setPut($postFields){
     	$this->_put = true; 
+    	$this->_postFields = $postFields; 
     }
 
     /**
@@ -123,6 +124,7 @@ class MyCurl {
 
 	        if($this->_put){
 	        	curl_setopt($myCurl, CURLOPT_CUSTOMREQUEST, "PUT");
+	        	curl_setopt($myCurl, CURLOPT_POSTFIELDS, json_encode($this->_postFields));
 	        }
 
 	    	curl_setopt($myCurl,CURLOPT_URL,$this->_url); 
@@ -133,12 +135,16 @@ class MyCurl {
 	        curl_setopt($myCurl,CURLOPT_MAXREDIRS, 4); 
 	        curl_setopt($myCurl,CURLOPT_RETURNTRANSFER,true); 
 	        $data = curl_exec($myCurl);
-	        $httpcode = curl_getinfo($myCurl, CURLINFO_HTTP_CODE);
-	        var_dump($this->_url);
-	        exit(0);
+	        $httpcode = curl_getinfo($myCurl, CURLINFO_HTTP_CODE); 
 
-	        $header_size = curl_getinfo($myCurl, CURLINFO_HEADER_SIZE);
+	       	$header_size = curl_getinfo($myCurl, CURLINFO_HEADER_SIZE);
 	        $header_aux = substr($data, 0, $header_size);
+
+	        if($this->_delete){
+	        	if(strcmp($data, "false") ==0){
+	        		throw new Exception("Error Message: Object Not Found ");
+	        	}
+	        }
 	        
 	        if($data === false){
 	        	$error = curl_error($myCurl);
@@ -157,6 +163,10 @@ class MyCurl {
 
 	        if($httpcode == 401){
 	        	throw new Exception("Error Message: Expired Token, ".$header_aux);
+	        }
+
+	        if($httpcode == 405){
+	        	throw new Exception("Error Message: Not Allowed, ".$header_aux);
 	        }
 
 	        if($httpcode == 500){

@@ -142,6 +142,10 @@ Returns the encoding for the colors field to be used for ad inclusion
 $inventory = new Inventory();
 $colors = $inventory->getColors($data);
 ```
+#### return
+type  | description
+----- | --------
+array | ['id'=>id, 'nome'=>]
 
 ### getEquipments
 Returns the encoding for the equipments field (optional for the car) to be used for ad inclusion
@@ -322,6 +326,8 @@ $fields = new \stdClass();
 $data->dealerId = dealer->id; /* Belong to the dealer, represented by id in dealer. */
 $data->dealId = deal->id; /* Belong to the deal, represented by id in deal. */
 
+/* id deal. */
+fields->dealId = 0; /*id belong the deal will update */
 /* id trim. */
 $fields->trimId = 0;
 /* car year */
@@ -371,11 +377,7 @@ $data->dealId = deal->id; /* Belong to the deal, represented by id in deal. */
 /* Image code in base64 */
 $fields->content = "";
 /* type mime */
-$fields->mimetype = "";
-/* image name */
-$fields->name = "";
-/* imagem name without extension */
-$fields->nameWithoutExtension = "";
+$fields->mimetype = ""; /*image/jpeg or image/png*/
 
 $data->fields = $fields;
 $imageId = $inventory->createNewPicture($data);
