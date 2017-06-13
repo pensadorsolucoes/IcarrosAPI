@@ -19,7 +19,7 @@ You can also:
   - Access your icarros account
   - Get everthing you need 
 
-The Website of iCarros Ltda, is intended to disclose advertisements, surveys, as well as any information and news relating to motor vehicles. This application allows you to make requests in icarros and use many resources, like: leads, inventory, create forms in your application, new ads registration in icarros account.
+The Website of iCarros Ltda, is intended to disclose advertisements, surveys, as well as any information and news relating to motor car. This application allows you to make requests in icarros and use many resources, like: leads, inventory, create forms in your application, new ads registration in icarros account.
 
 ## Give Feedback
 Please report bugs or issues to https://github.com/Veloccer/icarros/issues
@@ -144,7 +144,7 @@ $colors = $inventory->getColors($data);
 ```
 
 ### getEquipments
-Returns the encoding for the equipments field (optional for the vehicle) to be used for ad inclusion
+Returns the encoding for the equipments field (optional for the car) to be used for ad inclusion
 ```sh
 $inventory = new Inventory();
 $equipments = $inventory->getEquipments($data);
@@ -213,7 +213,7 @@ $trim = $inventory->getTrims($data);
 ```
 
 ### getPricestats
-Returns the minimum, average and maximum price announced for the vehicle in iCarros (Brazil and, if possible, in the state) along with the Fipe price.
+Returns the minimum, average and maximum price announced for the car in iCarros (Brazil and, if possible, in the state) along with the Fipe price.
 ```sh
 $inventory = new Inventory();
 $data->trimId= $trim-> id; /* Belong to the trim, represented by id in trim. */
@@ -443,7 +443,8 @@ $leads = $inventory->getProducts($data);
 ```sh
 array(2) { 
     ["status"]=> string(4) "fail" 
-    ["message"]=> string(101) "Mensage Error!" } 
+    ["message"]=> string(101) "Mensage Error!" 
+  } 
 ```
 
 #License
