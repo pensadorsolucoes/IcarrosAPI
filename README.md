@@ -142,7 +142,7 @@ Returns the encoding for the colors field to be used for ad inclusion
 $inventory = new Inventory();
 $colors = $inventory->getColors($data);
 ```
-return: array= ['id'=>'', 'nome'=>'']
+return: array
 
 ### getEquipments
 Returns the encoding for the equipments field (optional for the car) to be used for ad inclusion
@@ -150,6 +150,7 @@ Returns the encoding for the equipments field (optional for the car) to be used 
 $inventory = new Inventory();
 $equipments = $inventory->getEquipments($data);
 ```
+return: array
 
 ### getFuelTypes
 Returns the encoding for the fuel field to be used for ad inclusion
@@ -157,6 +158,7 @@ Returns the encoding for the fuel field to be used for ad inclusion
 $inventory = new Inventory();
 $fuel = $inventory->getFuelTypes($data);
 ```
+return: array
 
 ### GetMakes
 Returns the list of tags and their encoding in iCarros
@@ -164,6 +166,7 @@ Returns the list of tags and their encoding in iCarros
 $inventory = new Inventory();
 $makes = $inventory->getMakes($data);
 ```
+return: array
 
 ### GetModels
 Returns the list of templates and their encoding in iCarros. The tag is associated with make id.
@@ -172,6 +175,7 @@ $inventory = new Inventory();
 $data->makeId = $make->id; /* Belong to the make, represented by id in make. */
 $models = $inventory->getModels($data);
 ```
+return: array
 
 ### GetModelsLauch 
 Returns the list of newly released templates and their encoding in iCarros. The tag is associated with id.
@@ -179,6 +183,7 @@ Returns the list of newly released templates and their encoding in iCarros. The 
 $inventory = new Inventory();
 $modelsLaunch = $inventory->getModelsLaunch($data);
 ```
+return: array
 
 ### getPublishProviders
 Returns the destinations in which ads can be published
@@ -186,6 +191,7 @@ Returns the destinations in which ads can be published
 $inventory = new Inventory();
 $publish = $inventory->getPublishProviders($data);
 ```
+return: array
 
 ### getReviews
 Returns the Reviews of a model according to the year
@@ -195,6 +201,7 @@ $data->modelYear=YYYY;
 $data->modelId=$model->id; /* Belong to the model, represented by id in model. */
 $reviews = $inventory->getReviews($data);
 ```
+return: array
 
 ### getTransmissions
 Returns the encoding for the transmission field to be used for ad inclusion
@@ -202,6 +209,7 @@ Returns the encoding for the transmission field to be used for ad inclusion
 $inventory = new Inventory();
 $transmissions = $inventory->getTransmissions($data);
 ```
+return: array
 
 ### getTrims
 Returns the list of versions and their encoding in iCarros. Versions are a specialization of the model and are associated with it by the id.
@@ -212,6 +220,7 @@ $data->modelYear=YYYY;
 $data->modelId=$model->id; /* Belong to the model, represented by id in model. */
 $trim = $inventory->getTrims($data);
 ```
+return: array
 
 ### getPricestats
 Returns the minimum, average and maximum price announced for the car in iCarros (Brazil and, if possible, in the state) along with the Fipe price.
@@ -222,6 +231,7 @@ $data->year= YYYY;
 $data->km= 25000; /* amount of km */ 
 $pricestats = $inventory->getPricestats($data);
 ```
+return: array
 
 ### getDealer
 List of Dealers to which this login has access
@@ -229,6 +239,7 @@ List of Dealers to which this login has access
 $inventory = new Inventory();
 $dealer = $inventory->getDealer($data);
 ```
+return: array
 
 ### getDealerCalls
 Search for incoming calls.
@@ -237,6 +248,7 @@ $inventory = new Inventory();
 $data->dealerId = dealer->id; /* Belong to the dealer, represented by id in dealer. */
 $dealerCalls = $inventory->getDealerCalls($data);
 ```
+return: array
 
 ### getDealerInventory
 List the dealer's current inventory (inventory are many deals)
@@ -245,6 +257,7 @@ $inventory = new Inventory();
 $data->dealerId = deale->id; /* Belong to the dealer, represented by id in dealer. */
 $inventory = $inventory->getDealerInventory($data);
 ```
+return: array
 
 ### createDeal
 Create a new ad
@@ -290,6 +303,7 @@ $fields->photosIds=[];
 $data->fields = $fields;
 $dealId = $inventory->createDeal($data);
 ```
+return: int
 
 ### deleteDealer
 Delete an ad
@@ -301,6 +315,7 @@ $data->dealerId = dealer->id;
 $data->dealId; 
 $dealerCalls = $inventory->deleteDeal($data);
 ```
+return: true or exception
 
 
 ### getDataDeal
@@ -313,6 +328,7 @@ $data->dealerId = dealer->id;
 $data->dealId; 
 $dealerCalls = $inventory->getDataDeal($data);
 ```
+return: array
 
 ### updateDeal
 Update ad with uploaded data
@@ -361,6 +377,7 @@ $fields->photosIds=[];
 $data->fields = $fields;
 $dealId = $inventory->updateDealer($data);
 ```
+return: int
 
 ### createNewPicture
 Creates a new image for the informed ad
@@ -379,6 +396,7 @@ $fields->mimetype = ""; /*image/jpeg or image/png*/
 $data->fields = $fields;
 $imageId = $inventory->createNewPicture($data);
 ```
+return: int
 
 ### deletePicture
 Removes an ad image
@@ -391,6 +409,7 @@ $data->imageId = $image->id; /* Belong to the image, represented by id in image.
 
 $image = $inventory->deletePicture($data);
 ```
+return: true or exception
 
 ### reorderPicture
 Reorder the ad images in the order they were sent (ids of the images separated by underline eg 123_432_9832)
@@ -403,6 +422,7 @@ $data->imageId = $image->id; /* Belong to the image, represented by id in image.
 
 $images = $inventory->reorderPicture($data);
 ```
+return: array
 
 ### getLeads
 Returns all email and financing leads (grouped by user) in the last 90 days
@@ -411,6 +431,7 @@ $inventory = new Inventory();
 $data->dealerId = dealer->id; /* Belong to the dealer, represented by id in dealer. */
 $leads = $inventory->getLeads($data);
 ```
+return: array
 
 ### getLeadsSiceDate
 Search for email and financing leads (grouped by user) from the requested date
@@ -420,6 +441,7 @@ $data->dealerId = dealer->id; /* Belong to the dealer, represented by id in deal
 $data->data=yyyyMMddHHmmss;
 $leads = $inventory->getLeadsSiceDate($data);
 ```
+return: array
 
 ### getInvoicesBetweenDates
 List invoices betwen dates
@@ -431,6 +453,7 @@ $data->initial_data = yyyy-mm-dd
 $data->final_date = yyyy-mm-dd
 $leads = $inventory->getLeadsSiceDate($data);
 ```
+return: array;
 
 ### getProducts
 ```sh
@@ -438,6 +461,8 @@ $inventory = new Inventory();
 $data->dealerId = dealer->id; /* Belong to the dealer, represented by id in dealer. */
 $leads = $inventory->getProducts($data);
 ```
+return: array
+
 # Error
 ```sh
 array(2) { 
