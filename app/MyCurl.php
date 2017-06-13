@@ -114,7 +114,7 @@ class MyCurl {
 	    	
 	    	if($this->_post){ 
 	        	curl_setopt($myCurl,CURLOPT_POST,true); 
-	        	curl_setopt($myCurl,CURLOPT_POSTFIELDS, json_encode($this->_postFields)); 
+	        	curl_setopt($myCurl,CURLOPT_POSTFIELDS, json_encode($this->_postFields));
 	        } 
 
 	        if($this->_delete){
@@ -134,6 +134,8 @@ class MyCurl {
 	        curl_setopt($myCurl,CURLOPT_RETURNTRANSFER,true); 
 	        $data = curl_exec($myCurl);
 	        $httpcode = curl_getinfo($myCurl, CURLINFO_HTTP_CODE);
+	        var_dump($this->_url);
+	        exit(0);
 
 	        $header_size = curl_getinfo($myCurl, CURLINFO_HEADER_SIZE);
 	        $header_aux = substr($data, 0, $header_size);

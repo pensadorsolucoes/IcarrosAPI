@@ -1,5 +1,5 @@
 # Icarros SDK
-This open-source library allows you to integrate Icarros into your app. Learn more about about the provided samples, documentation, integrating the SDK into your app, accessing source code, and more at https://paginasegura.icarros.com.br/apidocs/index.html
+This open-source library allows you to integrate Icarros into your app. Learn more about the provided samples, documentation, integrating the SDK into your app, accessing source code, and more at https://paginasegura.icarros.com.br/apidocs/index.html
 
 ## Dependencies
 List of dependencies for use sdk
@@ -10,14 +10,14 @@ List of dependencies for use sdk
   - Apache
 
 ## Features!
-  - Import icarro system to use in your aplication
+  - Import data from Icarros system to use in your aplication
   - Create forms in your application, update inventory, and get the list of leads.
 
 You can also:
   - Generate access authorization
   - Generate access token 
   - Access your icarros account
-  - Get everthing you need 
+  - Get everything you need 
 
 The Website of iCarros Ltda, is intended to disclose advertisements, surveys, as well as any information and news relating to motor car. This application allows you to make requests in icarros and use many resources, like: leads, inventory, create forms in your application, new ads registration in icarros account.
 
@@ -27,7 +27,7 @@ Please report bugs or issues to https://github.com/Veloccer/icarros/issues
 ## Get Start
 
 ### include class
-#### OAth - Autentication
+#### OAuth - Autentication
 ```sh
 include('app/authentication/OAuth.php');
 ```
@@ -451,6 +451,3 @@ array(2) {
 Icarros SDK is Copyright © 2017 haganicolau.
 
 It is free software, and may be redistributed under the terms specified in the [LICENSE.txt](https://github.com/Veloccer/icarros/blob/master/LICENSE.txt)
-
-
-

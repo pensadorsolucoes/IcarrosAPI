@@ -720,7 +720,9 @@ class Inventory {
     * @return array answer success or fail
     **/
     public function createNewPicture($data){
-        $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->dealId.'/image';
+        $url = '/dealerservice/uploadimage/13793847';
+        // $url = '/dealerservice/dealer/'.$data->dealerId.'/inventory/'.$data->fields->dealId.'/image';
+
         /*
             Attributes relation:
              -modeloId: id dealer
@@ -730,12 +732,16 @@ class Inventory {
         try {
             $dateCurl = new \stdClass();
             $dateCurl->_url = $this->host.$url;
+
             $dateCurl->_method = 'POST';
             $dateCurl->_status = '';
             $myCurl = new MyCurl($dateCurl);
 
-            $fields_json = json_encode($data->fields);
-            $myCurl->setPost($fields_json);
+            $fields = new \stdClass();
+            $fields->conteudo =$data->fields->conteudo;
+            $fields->mimetype = 'image/jpeg';
+
+            $myCurl->setPost($fields);
 
             $header[0]='Accept: application/json';
             $header[1]=$data->token;
