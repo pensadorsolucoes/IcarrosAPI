@@ -65,7 +65,7 @@ class Icarros
 
 
 		if(empty($data))
-			throw new Exception("Empty data in construct");
+			throw new Exception("Empty data in __construct");
 
 
 		if(is_array($data)){
