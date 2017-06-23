@@ -40,14 +40,14 @@ class Icarros
 	/**
 	* use a 2 types of data
 	* @var array
-	*				client_id
-	*				client_secret
-	*				redirect_uri
-	*				response_type
-	*				scope
+	*		   client_id
+	*		   client_secret
+	*		   redirect_uri
+	*		   response_type
+	*		   scope
 	*
 	* @var string
-	*				token
+	*		   token
 	**/
 	public function __construct(
         $data = null)
@@ -99,12 +99,12 @@ class Icarros
     public function getToken()
 	{
 		return $this->request($this->_loginUrl . 'token')
-                ->addPost('code', self::$cfg['scope'])
-                ->addPost('client_id', self::$cfg['client_id'])
-                ->addPost('client_secret', self::$cfg['client_secret'])
-                ->addPost('redirect_uri', self::$cfg['redirect_uri'])
-                ->addPost('grant_type', 'authorization_code')
-            	->getResponse();
+            ->addPost('code', self::$cfg['scope'])
+            ->addPost('client_id', self::$cfg['client_id'])
+            ->addPost('client_secret', self::$cfg['client_secret'])
+            ->addPost('redirect_uri', self::$cfg['redirect_uri'])
+            ->addPost('grant_type', 'authorization_code')
+            ->getResponse();
 
 	}
 
@@ -120,9 +120,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/colors';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 
@@ -138,9 +138,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/equipments/1';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 
 	}
 
@@ -156,9 +156,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/fueltypes';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 
 	}
 
@@ -175,9 +175,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/makes/1';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 
 	}
 
@@ -193,9 +193,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/models/launch/1';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 
 	}
 
@@ -213,10 +213,10 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/models/launch/1';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-                ->addParam('makeId', $make_id)
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->addParam('makeId', $make_id)
+            ->getResponse();
 
 	}
 
@@ -234,9 +234,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/pricestats/1/'.$params['trim_id'].'/'.$params['model_year'].'/'.$params['km'];
 
 		return $this->request($endpoint)
-				->addHeader('Accept', 'application/json')
-				->addHeader('Authorization', self::$cfg['token'])
-				->getResponse();
+			->addHeader('Accept', 'application/json')
+			->addHeader('Authorization', self::$cfg['token'])
+			->getResponse();
 	}
 
 	/**
@@ -253,9 +253,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/publishproviders';
 
 		return $this->request($endpoint)
-				->addHeader('Accept', 'application/json')
-				->addHeader('Authorization', self::$cfg['token'])
-				->getResponse();
+			->addHeader('Accept', 'application/json')
+			->addHeader('Authorization', self::$cfg['token'])
+			->getResponse();
 	}
 
 
@@ -273,9 +273,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/reviews/'.$params['model_id'].'/'.$params['model_year'];
 
 		return $this->request($endpoint)
-				->addHeader('Accept', 'application/json')
-				->addHeader('Authorization', self::$cfg['token'])
-				->getResponse();
+			->addHeader('Accept', 'application/json')
+			->addHeader('Authorization', self::$cfg['token'])
+			->getResponse();
 	}
 
 	/**
@@ -292,9 +292,9 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/transmissions';
 
 		return $this->request($endpoint)
-				->addHeader('Accept', 'application/json')
-				->addHeader('Authorization', self::$cfg['token'])
-				->getResponse();
+			->addHeader('Accept', 'application/json')
+			->addHeader('Authorization', self::$cfg['token'])
+			->getResponse();
 	}
 
 	/**
@@ -311,12 +311,12 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/trims/1';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-                ->addParam('makeId', $data['make_id'])
-                ->addParam('modelId', $data['model_id'])
-                ->addParam('modelYear', $data['model_year'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->addParam('makeId', $data['make_id'])
+            ->addParam('modelId', $data['model_id'])
+            ->addParam('modelYear', $data['model_year'])
+            ->getResponse();
 
 	}
 
@@ -334,9 +334,9 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 	/**
@@ -353,9 +353,9 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/calls';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 	/**
@@ -372,9 +372,9 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 	/**
@@ -391,9 +391,9 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory/'.$params['deal_id'];
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 	/**
@@ -410,9 +410,9 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/leads';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 	/**
@@ -429,9 +429,9 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/leads/'.$params['initial_data'];
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 	/**
@@ -448,9 +448,9 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/invoices/'.$params['dealer_id'].'/'.$params['initial_data'].'/'.$params['final_date'];
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 	/**
@@ -467,9 +467,9 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/products/'.$params['dealer_id'];
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->getResponse();
 	}
 
 	/**
@@ -477,21 +477,20 @@ class Icarros
 	* Create a new ad in the inventory
 	* 
 	* @var array 
-	*				dealer_id
-	*				trimId
-	*				productionYear
-	*				modelYear
-	*				doors
-	*				colorId
-	*				km
-	*				price
-	*				priceResale
-	*				fuelId
-	*				plate
-	*				text
-	*				equipmentsIds
-	*				photosIds
-	*
+	*		dealer_id
+	*		trim_id
+	*		production_year
+	*		model_year
+	*		doors
+	*		color_id
+	*		km
+	*		price
+	*		price_resale
+	*		fuel_id
+	*		plate
+	*		text
+	*		equipments_ids
+	*		photos_ids
 	*
 	* @return array 	
 	*
@@ -502,24 +501,24 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory';
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Content-Type', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-                ->addPost('trimId', $params['trimId'])
-                ->addPost('productionYear', $params['productionYear'])
-                ->addPost('modelYear', $params['modelYear'])
-                ->addPost('doors', $params['doors'])
-                ->addPost('colorId', $params['colorId'])
-                ->addPost('km', $params['km'])
-                ->addPost('price', $params['price'])
-                ->addPost('priceResale', $params['priceResale'])
-                ->addPost('fuelId', $params['fuelId'])
-                ->addPost('plate', $params['plate'])
-                ->addPost('text', $params['text'])
-                ->addPost('dealerId', $params['dealerId'])
-                ->addPost('equipmentsIds', $params['equipmentsIds'])
-                ->addPost('photosIds', $params['photosIds'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Content-Type', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->addPost('trimId', $params['trim_id'])
+            ->addPost('productionYear', $params['production_year'])
+            ->addPost('modelYear', $params['model_Year'])
+            ->addPost('doors', $params['doors'])
+            ->addPost('colorId', $params['color_id'])
+            ->addPost('km', $params['km'])
+            ->addPost('price', $params['price'])
+            ->addPost('priceResale', $params['price_resale'])
+            ->addPost('fuelId', $params['fuel_id'])
+            ->addPost('plate', $params['plate'])
+            ->addPost('text', $params['text'])
+            ->addPost('dealerId', $params['dealer_id'])
+            ->addPost('equipmentsIds', $params['equipments_ids'])
+            ->addPost('photosIds', $params['photos_ids'])
+            ->getResponse();
 	}
 
 	/**
@@ -539,12 +538,12 @@ class Icarros
     {
     	$endpoint = $this->_api . '/dealerservice/dealer/'.$params['deale_id'].'/inventory/'.$params['deal_id'].'/image';
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Content-Type', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-                ->addPost('conteudo', $params['image_64'])
-                ->addPost('mimetype ', $params['mimetype'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Content-Type', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->addPost('conteudo', $params['image_64'])
+            ->addPost('mimetype ', $params['mimetype'])
+            ->getResponse();
     }
 
 	/**
@@ -552,22 +551,21 @@ class Icarros
 	* update a ad in the inventory
 	* 
 	* @var array 
-	*				dealer_id
-	*				deal_id
-	*				trimId
-	*				productionYear
-	*				modelYear
-	*				doors
-	*				colorId
-	*				km
-	*				price
-	*				priceResale
-	*				fuelId
-	*				plate
-	*				text
-	*				equipmentsIds
-	*				photosIds
-	*
+	*		dealer_id
+	*		deal_id
+	*		trim_id
+	*		production_year
+	*		model_year
+	*		doors
+	*		color_id
+	*		km
+	*		price
+	*		price_resale
+	*		fuel_id
+	*		plate
+	*		text
+	*		equipments_ids
+	*		photos_ids
 	*
 	* @return array 	
 	*
@@ -577,25 +575,25 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory'.$params['deal_id'];
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Content-Type', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-                ->addPut('id ', $params['deal_id'])
-                ->addPut('trimId', $params['trimId'])
-                ->addPut('productionYear', $params['productionYear'])
-                ->addPut('modelYear', $params['modelYear'])
-                ->addPut('doors', $params['doors'])
-                ->addPut('colorId', $params['colorId'])
-                ->addPut('km', $params['km'])
-                ->addPut('price', $params['price'])
-                ->addPut('priceResale', $params['priceResale'])
-                ->addPut('fuelId', $params['fuelId'])
-                ->addPut('plate', $params['plate'])
-                ->addPut('text', $params['text'])
-                ->addPut('dealerId', $params['dealerId'])
-                ->addPut('equipmentsIds', $params['equipmentsIds'])
-                ->addPut('photosIds', $params['photosIds'])
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Content-Type', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->addPut('id ', $params['deal_id'])
+            ->addPut('trimId', $params['trimId'])
+            ->addPut('productionYear', $params['production_year'])
+            ->addPut('modelYear', $params['model_year'])
+            ->addPut('doors', $params['doors'])
+            ->addPut('colorId', $params['color_id'])
+            ->addPut('km', $params['km'])
+            ->addPut('price', $params['price'])
+            ->addPut('priceResale', $params['price_resale'])
+            ->addPut('fuelId', $params['fuel_id'])
+            ->addPut('plate', $params['plate'])
+            ->addPut('text', $params['text'])
+            ->addPut('dealerId', $params['dealer_id'])
+            ->addPut('equipmentsIds', $params['equipments_ids'])
+            ->addPut('photosIds', $params['photos_ids'])
+            ->getResponse();
 	}
 
 
@@ -616,10 +614,10 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealerId'].'/inventory/'.$params['dealId'];
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-                ->addDelete(true)
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->addDelete(true)
+            ->getResponse();
 
 	}
 
@@ -640,10 +638,10 @@ class Icarros
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory/'.$params['deal_id'].'/image/'.$params['image_id'];
 
 		return $this->request($endpoint)
-                ->addHeader('Accept', 'application/json')
-                ->addHeader('Authorization', self::$cfg['token'])
-                ->addDelete(true)
-            	->getResponse();
+            ->addHeader('Accept', 'application/json')
+            ->addHeader('Authorization', self::$cfg['token'])
+            ->addDelete(true)
+            ->getResponse();
 
 	}
 
