@@ -1,6 +1,6 @@
 <?php
 namespace IcarrosAPI;
-require 'src/Request.php';
+
 /**
  * Icarros API v1.
  *
