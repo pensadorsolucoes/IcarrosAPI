@@ -16,16 +16,16 @@ class Request
      *
      * @var int
      */
-    protected $_url;
-    protected $_userAgent;
-    protected $_params = [];
-    protected $_posts = [];
-    protected $_puts = [];
-    protected $_delete = false;
-    protected $_headers = [];
+    private $_url;
+    private $_userAgent;
+    private $_params = [];
+    private $_posts = [];
+    private $_puts = [];
+    private $_delete = false;
+    private $_headers = [];
 
     public function __construct(
-        \IcarrosAPI\Icarros $parent,
+        Icarros $parent,
         $url)
     {
         $this->_userAgent =  'Veloccer/SDK';
@@ -33,8 +33,6 @@ class Request
         $this->_url = $url;
         return $this;
     }
-
-
 
     public function addParam(
         $key,
@@ -46,7 +44,6 @@ class Request
         $this->_params[$key] = $value;
         return $this;
     }
-
 
     public function addPost(
         $key,
@@ -70,8 +67,6 @@ class Request
         return $this;
     }
 
-
-
     /**
      * Add custom header to request, overwriting any previous or default value.
      *
@@ -89,20 +84,14 @@ class Request
         return $this;
     }
 
-
-
     public function getResponse()
     {
 
-
-
         $ch = curl_init();
 
-
         if($this->_params){
-            $this->_url . http_build_query($this->_params);
+            $this->_url = $this->_url . '?' . http_build_query($this->_params);
         }
-
 
         curl_setopt($ch, CURLOPT_URL, $this->_url);
         curl_setopt($ch, CURLOPT_USERAGENT, $this->_userAgent);
@@ -114,7 +103,6 @@ class Request
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_HTTPHEADER, Utils::convertHeaderCurl($this->$_headers));
-
 
         if($this->_posts){
             curl_setopt($ch, CURLOPT_POST, true);
@@ -130,8 +118,6 @@ class Request
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
         }
 
-
-
         $resp           = curl_exec($ch);
         $header_len     = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
         $curl_http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE );
@@ -140,12 +126,11 @@ class Request
 
         curl_close($ch);
 
-
         if($curl_http_code == 200) {
 
             return [
                 'status' => 'ok',
-                'body' => json_decode($body, true);
+                'body' => json_decode($body, true)
             ];
 
         } else {
@@ -154,14 +139,10 @@ class Request
                 'status' => 'fail',
                 'http_code' => $curl_http_code,
                 'header' => $header,
-                'body' => json_decode($body, true);
+                'body' => json_decode($body, true)
             ];
 
         }
-
-
-
-
 
     }
 

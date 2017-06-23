@@ -7,5 +7,10 @@
             "email": "haganicolau@gmail.com",
             "role": "Developer"
         }
-    ]
+    ],
+    "autoload": {
+       "psr-4": {
+           "vellocer\\IcarrosAPI": "src"
+       }
+   }
 }

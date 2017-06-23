@@ -1,8 +1,6 @@
 <?php
-
 namespace IcarrosAPI;
-
-
+require 'src/Request.php';
 /**
  * Icarros API v1.
  *
@@ -15,18 +13,15 @@ namespace IcarrosAPI;
  *
  */
 
-
 class Icarros
 {
-
-
 
 	/**
 	* config to all requests
 	*
 	* @var array
 	**/
-	protected $cfg = [];
+	private static $cfg = [];
 
 	/**
 	* Login url
@@ -42,10 +37,6 @@ class Icarros
 	**/
 	protected $_api = 'https://paginasegura.icarros.com.br/rest';
 
-
-
-
-
 	/**
 	* use a 2 types of data
 	* @var array
@@ -58,15 +49,12 @@ class Icarros
 	* @var string
 	*				token
 	**/
-
 	public function __construct(
         $data = null)
 	{
 
-
 		if(empty($data))
 			throw new Exception("Empty data in __construct");
-
 
 		if(is_array($data)){
 
@@ -84,9 +72,6 @@ class Icarros
 
     }
 
-
-
-
     /**
 	* 
 	* Get a login url to send your user
@@ -95,17 +80,11 @@ class Icarros
 	* @return string 	
 	*
 	**/
-
     public function getLoginUrl()
 	{
-
-		$endpoint = $this->_loginUrl . '/auth'
-		unlink(self::$cfg['client_secret']);
+		$endpoint = $this->_loginUrl . '/auth';
+		unset(self::$cfg['client_secret']);
 		return $endpoint . http_build_query(self::$cfg);
-
-
-
-
 	}
 
 
@@ -117,11 +96,8 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function getToken()
 	{
-
-
 		return $this->request($this->_loginUrl . 'token')
                 ->addPost('code', self::$cfg['scope'])
                 ->addPost('client_id', self::$cfg['client_id'])
@@ -132,11 +108,6 @@ class Icarros
 
 	}
 
-
-
-
-
-
 	/**
 	* 
 	* Get colors used in iCarros register
@@ -144,18 +115,14 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function getColors()
 	{
-
 		$endpoint = $this->_api . '/databaseservice/colors';
-
 
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
                 ->addHeader('Authorization', self::$cfg['token'])
             	->getResponse();
-
 	}
 
 
@@ -166,12 +133,9 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function getEquipments()
 	{
-
 		$endpoint = $this->_api . '/databaseservice/equipments/1';
-
 
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
@@ -179,7 +143,6 @@ class Icarros
             	->getResponse();
 
 	}
-
 
 	/**
 	* 
@@ -188,13 +151,10 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function getFuelTypes()
 	{
-
 		$endpoint = $this->_api . '/databaseservice/fueltypes';
 
-
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
                 ->addHeader('Authorization', self::$cfg['token'])
@@ -210,12 +170,9 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function getMakes()
 	{
-
 		$endpoint = $this->_api . '/databaseservice/makes/1';
-
 
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
@@ -231,12 +188,9 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function getModelsLaunch()
 	{
-
 		$endpoint = $this->_api . '/databaseservice/models/launch/1';
-
 
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
@@ -244,7 +198,6 @@ class Icarros
             	->getResponse();
 
 	}
-
 
 	/**
 	* 
@@ -255,12 +208,9 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function getModels($make_id = 0)
 	{
-
 		$endpoint = $this->_api . '/databaseservice/models/launch/1';
-
 
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
@@ -270,29 +220,256 @@ class Icarros
 
 	}
 
-
 	/**
 	* 
-	* Get models used in iCarros register
+	* GET the minimum, average and maximum price announced for the vehicle not iCarros (Brazil and if possible, in the state) with the combined price Fipe
 	* 
-	* @var make_id is a marcaId, if all use 0
+	* @var Array containing trimId, model year and km
 	*
 	* @return array 	
 	*
 	**/
-
-    public function getModels($make_id = 0)
+	public function getPricestats($params)
 	{
+		$endpoint = $this->_api . '/databaseservice/pricestats/1/'.$params['trim_id'].'/'.$params['model_year'].'/'.$params['km'];
 
-		$endpoint = $this->_api . '/databaseservice/models/launch/1';
+		return $this->request($endpoint)
+				->addHeader('Accept', 'application/json')
+				->addHeader('Authorization', self::$cfg['token'])
+				->getResponse();
+	}
 
+	/**
+	* 
+	* GET the destinations in which ads can be published
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getPublishProviders()
+	{
+		$endpoint = $this->_api . '/databaseservice/publishproviders';
+
+		return $this->request($endpoint)
+				->addHeader('Accept', 'application/json')
+				->addHeader('Authorization', self::$cfg['token'])
+				->getResponse();
+	}
+
+
+	/**
+	* 
+	* GET the Reviews of a model according to the year
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getReviews($params)
+	{
+		$endpoint = $this->_api . '/databaseservice/reviews/'.$params['model_id'].'/'.$params['model_year'];
+
+		return $this->request($endpoint)
+				->addHeader('Accept', 'application/json')
+				->addHeader('Authorization', self::$cfg['token'])
+				->getResponse();
+	}
+
+	/**
+	* 
+	* GET the encoding for the transmission field to be used for ad inclusion
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getTransmissions()
+	{
+		$endpoint = $this->_api . '/databaseservice/transmissions';
+
+		return $this->request($endpoint)
+				->addHeader('Accept', 'application/json')
+				->addHeader('Authorization', self::$cfg['token'])
+				->getResponse();
+	}
+
+	/**
+	* 
+	* GET the list of versions and their encoding in iCarros. Versions are a specialization of the model and are associated with it by the id.
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getTrims($data)
+	{
+		$endpoint = $this->_api . '/databaseservice/trims/1';
 
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
                 ->addHeader('Authorization', self::$cfg['token'])
-                ->addParam('makeId', $make_id)
+                ->addParam('makeId', $data['make_id'])
+                ->addParam('modelId', $data['model_id'])
+                ->addParam('modelYear', $data['model_year'])
             	->getResponse();
 
+	}
+
+	/**
+	* 
+	* GET of Dealers to this login has access
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getDealer()
+	{
+		$endpoint = $this->_api . '/dealerservice/dealer';
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+            	->getResponse();
+	}
+
+	/**
+	* 
+	* GET of Dealers to this login has access
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getDealerCalls($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/calls';
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+            	->getResponse();
+	}
+
+	/**
+	* 
+	* GET the dealer's current inventory
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getDealerInventory($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory';
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+            	->getResponse();
+	}
+
+	/**
+	* 
+	* GET the datas of the current requested ad
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getDataDeal($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory/'.$params['deal_id'];
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+            	->getResponse();
+	}
+
+	/**
+	* 
+	* GET all mail and financing leads (grouped by user) for the last 90 days.
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getLeads($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/leads';
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+            	->getResponse();
+	}
+
+	/**
+	* 
+	* GET all mail and financing leads (grouped by user) since initial date
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getLeadsSiceDate($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/leads/'.$params['initial_data'];
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+            	->getResponse();
+	}
+
+	/**
+	* 
+	* GET all invoices between two dates
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getInvoicesBetweenDates($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/invoices/'.$params['dealer_id'].'/'.$params['initial_data'].'/'.$params['final_date'];
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+            	->getResponse();
+	}
+
+	/**
+	* 
+	* GET all produtcs by id dealer
+	* 
+	* @var Array 
+	*
+	* @return array 	
+	*
+	**/
+	public function getProducts($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/products/'.$params['dealer_id'];
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+            	->getResponse();
 	}
 
 	/**
@@ -300,7 +477,7 @@ class Icarros
 	* Create a new ad in the inventory
 	* 
 	* @var array 
-	*				dealerId
+	*				dealer_id
 	*				trimId
 	*				productionYear
 	*				modelYear
@@ -319,15 +496,14 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function postDeal($params)
 	{
 
-		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealerId'].'/inventory';
-
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory';
 
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
+                ->addHeader('Content-Type', 'application/json')
                 ->addHeader('Authorization', self::$cfg['token'])
                 ->addPost('trimId', $params['trimId'])
                 ->addPost('productionYear', $params['productionYear'])
@@ -344,9 +520,83 @@ class Icarros
                 ->addPost('equipmentsIds', $params['equipmentsIds'])
                 ->addPost('photosIds', $params['photosIds'])
             	->getResponse();
-
 	}
 
+	/**
+	* 
+	* Create a new ad in the inventory
+	* 
+	* @var array 
+	*				deale_id
+	*				deal_id
+	*				image_64
+	*				mimetype
+	*
+	* @return array 	
+	*
+	**/
+    public function postImage($params)
+    {
+    	$endpoint = $this->_api . '/dealerservice/dealer/'.$params['deale_id'].'/inventory/'.$params['deal_id'].'/image';
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Content-Type', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+                ->addPost('conteudo', $params['image_64'])
+                ->addPost('mimetype ', $params['mimetype'])
+            	->getResponse();
+    }
+
+	/**
+	* 
+	* update a ad in the inventory
+	* 
+	* @var array 
+	*				dealer_id
+	*				deal_id
+	*				trimId
+	*				productionYear
+	*				modelYear
+	*				doors
+	*				colorId
+	*				km
+	*				price
+	*				priceResale
+	*				fuelId
+	*				plate
+	*				text
+	*				equipmentsIds
+	*				photosIds
+	*
+	*
+	* @return array 	
+	*
+	**/
+    public function putDeal($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory'.$params['deal_id'];
+
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Content-Type', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+                ->addPut('id ', $params['deal_id'])
+                ->addPut('trimId', $params['trimId'])
+                ->addPut('productionYear', $params['productionYear'])
+                ->addPut('modelYear', $params['modelYear'])
+                ->addPut('doors', $params['doors'])
+                ->addPut('colorId', $params['colorId'])
+                ->addPut('km', $params['km'])
+                ->addPut('price', $params['price'])
+                ->addPut('priceResale', $params['priceResale'])
+                ->addPut('fuelId', $params['fuelId'])
+                ->addPut('plate', $params['plate'])
+                ->addPut('text', $params['text'])
+                ->addPut('dealerId', $params['dealerId'])
+                ->addPut('equipmentsIds', $params['equipmentsIds'])
+                ->addPut('photosIds', $params['photosIds'])
+            	->getResponse();
+	}
 
 
 	/**
@@ -361,12 +611,9 @@ class Icarros
 	* @return array 	
 	*
 	**/
-
     public function deleteDeal($params)
 	{
-
 		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealerId'].'/inventory/'.$params['dealId'];
-
 
 		return $this->request($endpoint)
                 ->addHeader('Accept', 'application/json')
@@ -376,13 +623,29 @@ class Icarros
 
 	}
 
+		/**
+	* 
+	* Remove a ad in the inventory
+	* 
+	* @var array 
+	*				dealerId
+	*				dealId
+	*
+	*
+	* @return array 	
+	*
+	**/
+    public function deleteImage($params)
+	{
+		$endpoint = $this->_api . '/dealerservice/dealer/'.$params['dealer_id'].'/inventory/'.$params['deal_id'].'/image/'.$params['image_id'];
 
+		return $this->request($endpoint)
+                ->addHeader('Accept', 'application/json')
+                ->addHeader('Authorization', self::$cfg['token'])
+                ->addDelete(true)
+            	->getResponse();
 
-
-
-
-
-
+	}
 
 	/**
      *
@@ -398,8 +661,4 @@ class Icarros
     {
         return new Request($this, $url);
     }
-
-
-
-
 }
