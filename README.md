@@ -10,13 +10,6 @@ List of dependencies for use sdk
   - Composer 
   - Apache
 
-You can also:
-  - Generate access authorization
-  - Generate access token 
-  - Access your icarros account
-  - Get everything you need 
-
-
 # Give Feedback
 Please report bugs or issues to https://github.com/Veloccer/icarros/issues
 
