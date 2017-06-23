@@ -16,7 +16,6 @@ require 'src/Request.php';
 class Icarros
 {
 
-
 	/**
 	* config to all requests
 	*
@@ -61,9 +60,13 @@ class Icarros
 
 			self::$cfg['client_id'] 	= $data['client_id'];
 			self::$cfg['client_secret'] = $data['client_secret'];
+			
 			self::$cfg['redirect_uri'] 	= $data['redirect_uri'];
 			self::$cfg['response_type'] = $data['response_type'];
 			self::$cfg['scope'] 		= $data['scope'];
+			
+			if(isset($data['refresh_token'])) 
+				self::$cfg['refresh_token'] = $data['refresh_token'];
 
 		} else{
 
@@ -107,6 +110,23 @@ class Icarros
             ->addPost('grant_type', 'authorization_code')
             ->getResponse();
 
+	}
+
+	/**
+	* 
+	* Get reflesh token when has expired
+	* in $scope include code to receiver in return a getLoginUrl
+	*
+	* @return array 	
+	*
+	**/
+	public function getRefleshToken(){
+		return $this->request($this->_loginUrl . 'token')
+            ->addPost('refresh_token', self::$cfg['refresh_token'])
+            ->addPost('client_id', self::$cfg['client_id'])
+            ->addPost('client_secret', self::$cfg['client_secret'])
+            ->addPost('grant_type', 'refresh_token')
+            ->getResponse();
 	}
 
 	/**
@@ -209,14 +229,14 @@ class Icarros
 	* @return array 	
 	*
 	**/
-    public function getModels($make_id = 0)
+    public function getModels($params)
 	{
 		$endpoint = $this->_api . '/databaseservice/models/launch/1';
 
 		return $this->request($endpoint)
             ->addHeader('Accept', 'application/json')
             ->addHeader('Authorization', self::$cfg['token'])
-            ->addParam('makeId', $make_id)
+            ->addParam('makeId', $params['make_id'])
             ->getResponse();
 
 	}

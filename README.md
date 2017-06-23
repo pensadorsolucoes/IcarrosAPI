@@ -22,8 +22,10 @@ To learn more about api Icarros, all features, functions, read the [wiki here](h
 # Error
 ```sh
 array(2) { 
-    ["status"]=> string(4) "fail" 
-    ["message"]=> string(101) "Mensage Error!" 
+  'status' => 'fail',
+  'http_code' => $curl_http_code,
+  'header' => $header,
+  'body' => json_decode($body, true)
   } 
 ```
 

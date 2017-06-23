@@ -1,7 +1,6 @@
 <?php
 namespace IcarrosAPI;
 
-
 class Request
 {
     /**
