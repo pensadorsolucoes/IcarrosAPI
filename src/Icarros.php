@@ -16,7 +16,7 @@ require 'src/Request.php';
 class Icarros
 {
 
-	
+
 	/**
 	* config to all requests
 	*
@@ -312,12 +312,12 @@ class Icarros
 		$endpoint = $this->_api . '/databaseservice/trims/1';
 
 		return $this->request($endpoint)
-            ->addHeader('Accept', 'application/json')
-            ->addHeader('Authorization', self::$cfg['token'])
-            ->addParam('makeId', $data['make_id'])
-            ->addParam('modelId', $data['model_id'])
-            ->addParam('modelYear', $data['model_year'])
-            ->getResponse();
+			->addHeader('Accept', 'application/json')
+        	->addHeader('Authorization', self::$cfg['token'])
+        	->addParam('makeId', $data['make_id'])
+        	->addParam('modelId', $data['model_id'])
+        	->addParam('modelYear', $data['model_year'])
+        	->getResponse();
 
 	}
 
