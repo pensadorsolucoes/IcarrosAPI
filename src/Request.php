@@ -101,7 +101,7 @@ class Request
         curl_setopt($ch, CURLOPT_ENCODING,  '');
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, Utils::convertHeaderCurl($this->$_headers));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, Utils::convertHeaderCurl($this->_headers));
 
         if($this->_posts){
             curl_setopt($ch, CURLOPT_POST, true);

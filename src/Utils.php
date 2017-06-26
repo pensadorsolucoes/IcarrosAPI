@@ -11,7 +11,7 @@ class Utils
 
     	foreach ($array as $key => $value) {
     		
-    		$headers[] = [ $key ': '. $value];
+    		$headers[] = $key. ': '. $value;
 
     	}
     	

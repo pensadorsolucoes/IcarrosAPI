@@ -21,7 +21,6 @@ try{
 
 	$token = $icarros->getLoginUrl();
 	var_dump($token);
-
 	
 } catch (Exception $e) {
     $return = [

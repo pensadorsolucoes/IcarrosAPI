@@ -73,7 +73,6 @@ class Icarros
 			self::$cfg['token'] = 'Bearer ' . $data;
 
 		}
-
     }
 
     /**
@@ -91,7 +90,6 @@ class Icarros
 		return $endpoint . http_build_query(self::$cfg);
 	}
 
-
 	/**
 	* 
 	* Get token for the request
@@ -103,6 +101,7 @@ class Icarros
     public function getToken()
 	{
 		return $this->request($this->_loginUrl . 'token')
+			->addHeader('Accept', 'application/json')
             ->addPost('code', self::$cfg['scope'])
             ->addPost('client_id', self::$cfg['client_id'])
             ->addPost('client_secret', self::$cfg['client_secret'])
@@ -122,6 +121,7 @@ class Icarros
 	**/
 	public function getRefleshToken(){
 		return $this->request($this->_loginUrl . 'token')
+			->addHeader('Accept', 'application/json')
             ->addPost('refresh_token', self::$cfg['refresh_token'])
             ->addPost('client_id', self::$cfg['client_id'])
             ->addPost('client_secret', self::$cfg['client_secret'])
