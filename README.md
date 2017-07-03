@@ -19,14 +19,24 @@ step by step - not ready
 # Wiki
 To learn more about api Icarros, all features, functions, read the [wiki here](https://github.com/Veloccer/IcarrosAPI/wiki).
 
+# Return
+```sh
+
+  array(2){
+    'status' => 'ok',
+    'body' => json_body
+    };
+```
+
 # Error
 ```sh
-array(2) { 
-  'status' => 'fail',
-  'http_code' => $curl_http_code,
-  'header' => $header,
-  'body' => json_decode($body, true)
-  } 
+
+  array(4){
+    'status' => 'fail',
+    'http_code' => http_code,
+    'header' => header,
+    'body' => json_body
+    };
 ```
 
 # License
