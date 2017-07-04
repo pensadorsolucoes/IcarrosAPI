@@ -1,4 +1,4 @@
-# Icarros SDK
+# IcarrosApi SDK
 This open-source library allows you to integrate Icarros into your app. Learn more about the provided samples, documentation, integrating the SDK into your app, accessing source code, and more at [click here](https://paginasegura.icarros.com.br/apidocs/index.html)
 The Website of iCarros Ltda, is intended to disclose advertisements, surveys, as well as any information and news relating to motor car. This application allows you to make requests in icarros and use many resources, like: leads, inventory, create forms in your application, new ads registration in icarros account.
 
