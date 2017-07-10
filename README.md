@@ -11,7 +11,7 @@ List of dependencies for use sdk
   - Apache
 
 # Give Feedback
-Please report bugs or issues to https://github.com/Veloccer/icarros/issues
+Please report bugs or issues to https://github.com/Veloccer/IcarrosAPI/issues
 
 # Instalation
 step by step - not ready
@@ -42,4 +42,4 @@ To learn more about api Icarros, all features, functions, read the [wiki here](h
 # License
 iCarros SDK is Copyright © 2017 haganicolau.
 
-It is free software, and may be redistributed under the terms specified in the [LICENSE.txt](https://github.com/Veloccer/icarros/blob/master/LICENSE.txt)
+It is free software, and may be redistributed under the terms specified in the [LICENSE.txt](https://github.com/Veloccer/IcarrosAPI/blob/master/LICENSE.txt)

@@ -85,7 +85,7 @@ class Icarros
 	**/
     public function getLoginUrl()
 	{
-		$endpoint = $this->_loginUrl . '/auth';
+		$endpoint = $this->_loginUrl . '/auth?';
 		unset(self::$cfg['client_secret']);
 		return $endpoint . http_build_query(self::$cfg);
 	}
