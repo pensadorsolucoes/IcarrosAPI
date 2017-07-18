@@ -600,7 +600,7 @@ class Icarros
             ->addHeader('Content-Type', 'application/json')
             ->addHeader('Authorization', self::$cfg['token'])
             ->addPut('id ', $params['deal_id'])
-            ->addPut('trimId', $params['trimId'])
+            ->addPut('trimId', $params['trim_id'])
             ->addPut('productionYear', $params['production_year'])
             ->addPut('modelYear', $params['model_year'])
             ->addPut('doors', $params['doors'])
