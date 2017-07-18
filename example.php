@@ -17,7 +17,7 @@ $icarros = new  Icarros(
       'client_secret'  => '{client_secret}',
       'redirect_uri'   => '{redirect_uri}',
       'scope'          => '{scope}'
-	  )
+	)
 ); 
 
 $url_login = $icarros->getLoginUrl();
@@ -31,7 +31,7 @@ $icarros = new  Icarros(
       'client_id'   => '{client_id}',
       'redirect_uri'=> '{redirect_uri}',
       'client_secret'=>'{client_secret}'
-    )
+   )
 ); 
 
 $token = $icarros->getToken();
@@ -65,19 +65,20 @@ $dealer  = $icarros->getDealer();
 //======================================================================
 
 $params=[
+  'deal_id'          => '{deal_id}',
   'dealer_id'        => '{dealer_id}',
-  'trim_id'          => '26884',
-  'production_year'  => '2017',
-  'model_year'       => '2017',
-  'doors'            => '4',
-  'color_id'         => '5',
-  'km'               => '25000',
-  'price'            => '28000',
-  'price_resale'     => '28000',
-  'fuel_id'          => '5',
-  'plate'            => 'AAA8000',
-  'text'             => 'Texto exemplo teste, teste, teste',
-  'equipments_ids'   => ['1', '2', '3', '4', '7', '8', '11', '12'],
+  'trim_id'          => '{trim_id}',
+  'production_year'  => '{production_year}',
+  'model_year'       => '{model_year}',
+  'doors'            => '{doors}',
+  'color_id'         => '{color_id}',
+  'km'               => '{km}',
+  'price'            => '{price}',
+  'price_resale'     => '{price_resale}',
+  'fuel_id'          => '{fuel_id}',
+  'plate'            => '{plate}',
+  'text'             => '{text}',
+  'equipments_ids'   => ['id1', 'id2', 'id3', ... ,'idn'],
   'photos_ids'       => []
 ];
 
