@@ -59,19 +59,19 @@ class Icarros
 		if(is_array($data)){
 
 			self::$cfg['client_id'] 	= $data['client_id'];
-			self::$cfg['client_secret'] = $data['client_secret'];
-			
+			self::$cfg['client_secret'] = $data['client_secret'];			
 			self::$cfg['redirect_uri'] 	= $data['redirect_uri'];
-			self::$cfg['response_type'] = $data['response_type'];
 			self::$cfg['scope'] 		= $data['scope'];
-			
+
+			if(isset($data['response_type']))
+				self::$cfg['response_type'] = $data['response_type'];
+
 			if(isset($data['refresh_token'])) 
 				self::$cfg['refresh_token'] = $data['refresh_token'];
 
 		} else{
 
 			self::$cfg['token'] = 'Bearer ' . $data;
-
 		}
     }
 
@@ -100,15 +100,15 @@ class Icarros
 	**/
     public function getToken()
 	{
-		return $this->request($this->_loginUrl . 'token')
-			->addHeader('Accept', 'application/json')
+		return $this->request($this->_loginUrl . '/token')
+			->addHeader('Content-Type', 'application/x-www-form-urlencoded')
+			->addPost('grant_type', 'authorization_code')
             ->addPost('code', self::$cfg['scope'])
             ->addPost('client_id', self::$cfg['client_id'])
             ->addPost('client_secret', self::$cfg['client_secret'])
             ->addPost('redirect_uri', self::$cfg['redirect_uri'])
-            ->addPost('grant_type', 'authorization_code')
+			->setIsToken()
             ->getResponse();
-
 	}
 
 	/**
@@ -120,7 +120,7 @@ class Icarros
 	*
 	**/
 	public function getRefleshToken(){
-		return $this->request($this->_loginUrl . 'token')
+		return $this->request($this->_loginUrl . '/token')
 			->addHeader('Accept', 'application/json')
             ->addPost('refresh_token', self::$cfg['refresh_token'])
             ->addPost('client_id', self::$cfg['client_id'])
@@ -527,7 +527,7 @@ class Icarros
             ->addHeader('Authorization', self::$cfg['token'])
             ->addPost('trimId', $params['trim_id'])
             ->addPost('productionYear', $params['production_year'])
-            ->addPost('modelYear', $params['model_Year'])
+            ->addPost('modelYear', $params['model_year'])
             ->addPost('doors', $params['doors'])
             ->addPost('colorId', $params['color_id'])
             ->addPost('km', $params['km'])

@@ -22,6 +22,7 @@ class Request
     private $_puts = [];
     private $_delete = false;
     private $_headers = [];
+    private $_isToken = false;
 
     public function __construct(
         Icarros $parent,
@@ -30,6 +31,12 @@ class Request
         $this->_userAgent =  'Veloccer/SDK';
         $this->_parent = $parent;
         $this->_url = $url;
+        return $this;
+    }
+
+    public function setIsToken()
+    {
+        $this->_isToken = true;
         return $this;
     }
 
@@ -105,7 +112,12 @@ class Request
 
         if($this->_posts){
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->_posts));
+            if($this->_isToken){
+                curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($this->_posts));
+            }
+            else {
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->_posts));
+            }
         }
 
         if($this->_puts){
